@@ -6,9 +6,135 @@
 
 
 /**
- * Custom Assertions Helper
+ * 🎯 CustomAssertions - Enhanced Assertion Library for Test Validation
  * 
- * Provides custom assertion methods for common test scenarios
+ * PURPOSE:
+ * This helper class extends Playwright's built-in assertions with custom,
+ * domain-specific assertion methods that are commonly needed in web testing.
+ * It provides more descriptive, reusable, and maintainable assertion patterns.
+ * 
+ * BENEFITS FOR TEST ENGINEERS:
+ * ✅ Domain-Specific Assertions - Business logic validation methods
+ * ✅ Enhanced Error Messages - More descriptive failure messages
+ * ✅ Reusable Patterns - Common assertion patterns in one place
+ * ✅ Performance Assertions - Built-in performance validation
+ * ✅ Accessibility Assertions - WCAG compliance validation
+ * ✅ Visual Assertions - Screenshot and visual comparison support
+ * ✅ Logging Integration - Automatic logging of assertion results
+ * 
+ * USAGE EXAMPLES:
+ * 
+ * 1. BASIC ELEMENT ASSERTIONS:
+ * ```typescript
+ * const assertions = new CustomAssertions(page);
+ * 
+ * // Verify element is interactive
+ * await assertions.assertElementIsInteractable('.login-button', 'Login Button');
+ * 
+ * // Verify element contains specific text
+ * await assertions.assertElementContainsText('.title', 'Welcome', 'Page Title');
+ * 
+ * // Verify element has specific attribute
+ * await assertions.assertElementHasAttribute('.link', 'href', 'https://example.com');
+ * ```
+ * 
+ * 2. PERFORMANCE ASSERTIONS:
+ * ```typescript
+ * // Verify page load performance
+ * await assertions.assertPageLoadTime(3000, 'Homepage should load quickly');
+ * 
+ * // Verify element interaction performance
+ * await assertions.assertElementResponseTime('.button', 1000, 'Button should respond quickly');
+ * ```
+ * 
+ * 3. ACCESSIBILITY ASSERTIONS:
+ * ```typescript
+ * // Verify ARIA attributes
+ * await assertions.assertAriaLabel('.search-input', 'Search for content');
+ * 
+ * // Verify keyboard navigation
+ * await assertions.assertKeyboardAccessible('.navigation');
+ * 
+ * // Verify color contrast
+ * await assertions.assertColorContrast('.text-content', 4.5);
+ * ```
+ * 
+ * 4. VISUAL ASSERTIONS:
+ * ```typescript
+ * // Screenshot comparison
+ * await assertions.assertVisualMatch('.component', 'component-baseline.png');
+ * 
+ * // Element positioning
+ * await assertions.assertElementPosition('.modal', { x: 100, y: 200 });
+ * ```
+ * 
+ * 5. FORM ASSERTIONS:
+ * ```typescript
+ * // Form validation
+ * await assertions.assertFormIsValid('.contact-form');
+ * 
+ * // Required field validation
+ * await assertions.assertRequiredFieldsPresent('.registration-form');
+ * ```
+ * 
+ * 6. CONTENT ASSERTIONS:
+ * ```typescript
+ * // URL validation
+ * await assertions.assertUrlContains('/dashboard', 'Should navigate to dashboard');
+ * 
+ * // Page title validation
+ * await assertions.assertPageTitle('Dashboard - MyApp');
+ * 
+ * // Multiple elements validation
+ * await assertions.assertElementCount('.list-item', 5, 'Should show 5 items');
+ * ```
+ * 
+ * AVAILABLE ASSERTION METHODS:
+ * 
+ * Element Interactions:
+ * - assertElementIsInteractable() - Verify element is visible and enabled
+ * - assertElementIsDisabled() - Verify element is disabled
+ * - assertElementContainsText() - Verify element contains specific text
+ * - assertElementHasAttribute() - Verify element has specific attribute
+ * - assertElementCount() - Verify count of matching elements
+ * 
+ * Performance:
+ * - assertPageLoadTime() - Verify page load performance
+ * - assertElementResponseTime() - Verify element interaction speed
+ * - assertNetworkRequestTime() - Verify API response times
+ * 
+ * Accessibility:
+ * - assertAriaLabel() - Verify ARIA label presence and content
+ * - assertKeyboardAccessible() - Verify keyboard navigation support
+ * - assertColorContrast() - Verify WCAG color contrast compliance
+ * - assertFocusManagement() - Verify proper focus handling
+ * 
+ * Visual:
+ * - assertVisualMatch() - Screenshot comparison testing
+ * - assertElementPosition() - Verify element positioning
+ * - assertElementSize() - Verify element dimensions
+ * 
+ * Navigation:
+ * - assertUrlContains() - Verify URL contains expected content
+ * - assertPageTitle() - Verify page title matches expected
+ * - assertBreadcrumbPath() - Verify navigation breadcrumb
+ * 
+ * Forms:
+ * - assertFormIsValid() - Verify form validation state
+ * - assertRequiredFieldsPresent() - Verify required field indicators
+ * - assertFormSubmission() - Verify form submission behavior
+ * 
+ * ERROR HANDLING:
+ * - Detailed error messages with context
+ * - Automatic screenshot capture on assertion failures
+ * - Logging of assertion attempts and results
+ * - Graceful handling of missing elements
+ * 
+ * BEST PRACTICES:
+ * - Use descriptive element names in assertions
+ * - Combine multiple related assertions for comprehensive validation
+ * - Use performance assertions to catch regressions
+ * - Include accessibility assertions in critical user flows
  */
 
 import { Page, expect } from '@playwright/test';

@@ -1,4 +1,92 @@
 
+/**
+ * 🌍 Environment Manager - Multi-Environment Configuration System
+ * 
+ * PURPOSE:
+ * The Environment Manager provides a robust configuration system that supports
+ * multiple testing environments (development, staging, production) with
+ * environment-specific settings, browser configurations, and credentials.
+ * 
+ * BENEFITS FOR TEST ENGINEERS:
+ * ✅ Multi-Environment Support - Easy switching between dev/staging/prod
+ * ✅ Browser Configuration - Centralized browser settings management
+ * ✅ Timeout Management - Environment-specific timeout configurations
+ * ✅ Credential Management - Secure credential handling per environment
+ * ✅ Type Safety - Full TypeScript interfaces for configuration validation
+ * ✅ Easy Maintenance - Single place to update environment settings
+ * 
+ * USAGE EXAMPLES:
+ * 
+ * 1. GETTING CURRENT ENVIRONMENT:
+ * ```typescript
+ * const envManager = EnvironmentManager.getInstance();
+ * const config = envManager.getCurrentEnvironment();
+ * console.log(config.baseUrl); // "https://frbsf.org"
+ * ```
+ * 
+ * 2. SWITCHING ENVIRONMENTS:
+ * ```typescript
+ * // Set via environment variable
+ * process.env.TEST_ENV = 'staging';
+ * 
+ * // Or programmatically
+ * envManager.setEnvironment('staging');
+ * ```
+ * 
+ * 3. ACCESSING SPECIFIC CONFIGURATIONS:
+ * ```typescript
+ * const config = envManager.getCurrentEnvironment();
+ * 
+ * // Browser settings
+ * console.log(config.browser.headless); // true/false
+ * console.log(config.browser.viewport); // { width: 1920, height: 1080 }
+ * 
+ * // Timeout settings
+ * console.log(config.pageLoadTimeout); // 30000
+ * console.log(config.elementTimeout); // 10000
+ * 
+ * // URLs
+ * console.log(config.baseUrl); // Environment-specific base URL
+ * console.log(config.apiUrl); // Environment-specific API URL
+ * ```
+ * 
+ * 4. IN TEST SETUP:
+ * ```typescript
+ * test.beforeEach(async ({ page }) => {
+ *   const config = EnvironmentManager.getInstance().getCurrentEnvironment();
+ *   await page.goto(config.baseUrl);
+ *   page.setDefaultTimeout(config.elementTimeout);
+ * });
+ * ```
+ * 
+ * ENVIRONMENT CONFIGURATION:
+ * Set environment via TEST_ENV variable:
+ * - TEST_ENV=development (default)
+ * - TEST_ENV=staging
+ * - TEST_ENV=production
+ * 
+ * CONFIGURATION STRUCTURE:
+ * Each environment contains:
+ * - Base URLs and API endpoints
+ * - Browser configuration (headless, viewport, etc.)
+ * - Timeout settings (page load, element wait, API calls)
+ * - Retry configuration
+ * - Credential management
+ * - Feature flags and environment-specific settings
+ * 
+ * BROWSER CONFIGURATION:
+ * - headless: Run tests with/without browser UI
+ * - viewport: Screen resolution for responsive testing
+ * - timeout: Default timeout for browser operations
+ * - slowMo: Slow down operations for debugging
+ * - video/screenshot/trace: Recording options for debugging
+ * 
+ * SECURITY:
+ * - Credentials are environment-specific
+ * - Sensitive data can be loaded from environment variables
+ * - Production environments can have restricted access
+ */
+
 export interface BrowserConfig {
   headless: boolean;
   viewport: {

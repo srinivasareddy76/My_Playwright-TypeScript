@@ -1,5 +1,93 @@
 
 
+/**
+ * 📝 Logger - Centralized Logging System
+ * 
+ * PURPOSE:
+ * The Logger provides a centralized, configurable logging system for the entire
+ * test framework. It supports multiple log levels, file output, console output,
+ * and structured logging for better debugging and monitoring.
+ * 
+ * FEATURES FOR TEST ENGINEERS:
+ * ✅ Multiple Log Levels - ERROR, WARN, INFO, DEBUG
+ * ✅ File & Console Output - Logs to both file and console simultaneously
+ * ✅ Timestamp Support - All logs include precise timestamps
+ * ✅ Singleton Pattern - Single instance across the entire framework
+ * ✅ Environment Configuration - Log level configurable via environment variables
+ * ✅ Structured Logging - Consistent format for easy parsing
+ * ✅ Performance Tracking - Built-in performance logging capabilities
+ * 
+ * USAGE EXAMPLES:
+ * 
+ * 1. BASIC LOGGING:
+ * ```typescript
+ * const logger = Logger.getInstance();
+ * 
+ * logger.info('Test started successfully');
+ * logger.warn('Element not found, retrying...');
+ * logger.error('Test failed with validation error');
+ * logger.debug('Detailed debugging information');
+ * ```
+ * 
+ * 2. IN PAGE OBJECTS:
+ * ```typescript
+ * export class HomePage extends BasePage {
+ *   async clickLoginButton(): Promise<void> {
+ *     this.logger.info('PAGE ACTION: HomePage - clickLoginButton');
+ *     await this.clickElement(this.selectors.loginButton);
+ *     this.logger.info('Login button clicked successfully');
+ *   }
+ * }
+ * ```
+ * 
+ * 3. IN TEST SPECIFICATIONS:
+ * ```typescript
+ * test('user login flow', async ({ page }) => {
+ *   const logger = Logger.getInstance();
+ *   logger.info('Starting user login test');
+ *   
+ *   // Test implementation
+ *   
+ *   logger.info('User login test completed successfully');
+ * });
+ * ```
+ * 
+ * 4. PERFORMANCE LOGGING:
+ * ```typescript
+ * const startTime = Date.now();
+ * // ... perform action
+ * const duration = Date.now() - startTime;
+ * logger.info(`Action completed in ${duration}ms`);
+ * ```
+ * 
+ * LOG LEVELS EXPLAINED:
+ * - ERROR (0): Critical failures, test failures, system errors
+ * - WARN (1): Warnings, retries, fallback actions
+ * - INFO (2): General information, test progress, major actions
+ * - DEBUG (3): Detailed debugging, element interactions, data dumps
+ * 
+ * CONFIGURATION:
+ * Set log level via environment variable:
+ * - LOG_LEVEL=ERROR (only errors)
+ * - LOG_LEVEL=WARN (warnings and errors)
+ * - LOG_LEVEL=INFO (info, warnings, errors) - DEFAULT
+ * - LOG_LEVEL=DEBUG (all logs)
+ * 
+ * OUTPUT LOCATIONS:
+ * - Console: Real-time logging during test execution
+ * - File: reports/test.log (persistent logging for analysis)
+ * 
+ * LOG FORMAT:
+ * [TIMESTAMP] [LEVEL] MESSAGE
+ * Example: 2024-03-04T10:30:45.123Z [INFO] Test started successfully
+ * 
+ * BENEFITS:
+ * 🔍 Easy Debugging - Detailed logs help identify issues quickly
+ * 📊 Test Monitoring - Track test execution progress and performance
+ * 🛡️ Error Tracking - Comprehensive error logging with context
+ * 📈 Performance Analysis - Built-in timing and performance metrics
+ * 🔧 Maintenance - Easier troubleshooting and framework maintenance
+ */
 
 import * as fs from 'fs';
 import * as path from 'path';

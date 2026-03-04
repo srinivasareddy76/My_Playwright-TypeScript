@@ -6,9 +6,109 @@
 
 
 /**
- * FRBSF Homepage Page Object
+ * 🏠 FRBSFHomePage - Federal Reserve Bank of San Francisco Homepage Page Object
  * 
- * Page object for Federal Reserve Bank of San Francisco homepage
+ * PURPOSE:
+ * This page object encapsulates all interactions with the FRBSF homepage,
+ * providing a clean, maintainable interface for test automation. It follows
+ * the Page Object Model (POM) pattern and extends the BasePage for common functionality.
+ * 
+ * FEATURES FOR TEST ENGINEERS:
+ * ✅ Complete Homepage Coverage - All major page elements and interactions
+ * ✅ Robust Selectors - Multiple fallback selectors for reliability
+ * ✅ Performance Monitoring - Built-in page load and interaction timing
+ * ✅ Accessibility Support - ARIA labels and keyboard navigation testing
+ * ✅ Responsive Testing - Mobile and desktop viewport support
+ * ✅ Error Handling - Graceful handling of missing elements
+ * ✅ Logging Integration - Detailed action logging for debugging
+ * 
+ * USAGE EXAMPLES:
+ * 
+ * 1. BASIC NAVIGATION:
+ * ```typescript
+ * const homePage = new FRBSFHomePage(page);
+ * await homePage.navigateToHomePage();
+ * await homePage.verifyPageLoaded();
+ * ```
+ * 
+ * 2. SEARCH FUNCTIONALITY:
+ * ```typescript
+ * await homePage.performSearch('monetary policy');
+ * const results = await homePage.getSearchResults();
+ * expect(results.length).toBeGreaterThan(0);
+ * ```
+ * 
+ * 3. NAVIGATION TESTING:
+ * ```typescript
+ * const navItems = await homePage.getNavigationItems();
+ * await homePage.clickNavigationItem('Research');
+ * await homePage.verifyNavigationWorking();
+ * ```
+ * 
+ * 4. CONTENT VERIFICATION:
+ * ```typescript
+ * await homePage.verifyHeroSectionVisible();
+ * await homePage.verifyNewsSection();
+ * await homePage.verifyResearchPublications();
+ * ```
+ * 
+ * 5. RESPONSIVE TESTING:
+ * ```typescript
+ * await homePage.testMobileResponsiveness();
+ * await homePage.testTabletResponsiveness();
+ * await homePage.testDesktopResponsiveness();
+ * ```
+ * 
+ * 6. PERFORMANCE TESTING:
+ * ```typescript
+ * const loadTime = await homePage.getPageLoadTime();
+ * const metrics = await homePage.getPerformanceMetrics();
+ * expect(loadTime).toBeLessThan(5000);
+ * ```
+ * 
+ * SELECTOR STRATEGY:
+ * Uses multiple fallback selectors for robustness:
+ * - Primary: data-testid attributes (most reliable)
+ * - Secondary: CSS classes (common patterns)
+ * - Tertiary: Element types with ARIA labels (accessibility-focused)
+ * 
+ * AVAILABLE METHODS:
+ * Navigation:
+ * - navigateToHomePage() - Navigate to homepage and verify load
+ * - verifyPageLoaded() - Verify page loaded successfully
+ * - goBack() - Navigate back in browser history
+ * 
+ * Search:
+ * - performSearch(term) - Execute search with given term
+ * - getSearchResults() - Get search result elements
+ * - clearSearch() - Clear search input
+ * 
+ * Navigation Menu:
+ * - getNavigationItems() - Get all navigation menu items
+ * - clickNavigationItem(name) - Click specific navigation item
+ * - verifyNavigationWorking() - Verify navigation functionality
+ * 
+ * Content Verification:
+ * - verifyHeroSectionVisible() - Check hero section display
+ * - verifyNewsSection() - Verify news content section
+ * - verifyResearchPublications() - Check research publications
+ * - verifySocialMediaLinks() - Verify social media integration
+ * - verifyContactInformation() - Check contact details
+ * 
+ * Responsive Testing:
+ * - testMobileResponsiveness() - Test mobile viewport behavior
+ * - testTabletResponsiveness() - Test tablet viewport behavior
+ * - testDesktopResponsiveness() - Test desktop viewport behavior
+ * 
+ * Performance:
+ * - getPageLoadTime() - Measure page load performance
+ * - getPerformanceMetrics() - Get detailed performance data
+ * 
+ * MAINTENANCE NOTES:
+ * - Update selectors if website structure changes
+ * - Add new methods for new page features
+ * - Keep selectors robust with multiple fallbacks
+ * - Maintain consistent naming conventions
  */
 
 import { Page, expect } from '@playwright/test';

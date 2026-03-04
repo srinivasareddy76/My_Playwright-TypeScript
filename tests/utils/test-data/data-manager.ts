@@ -8,9 +8,80 @@
 
 
 /**
- * Test Data Manager
+ * 📊 DataManager - Smart Test Data Management System
  * 
- * Manages test data loading, generation, and manipulation
+ * PURPOSE:
+ * The DataManager is the central hub for all test data operations in the framework.
+ * It provides intelligent data loading, reference resolution, and environment-specific
+ * configuration management. This class eliminates data duplication through a smart
+ * reference system and provides type-safe access to all test data.
+ * 
+ * KEY FEATURES:
+ * ✅ Smart Reference Resolution - Eliminates data duplication via dot notation references
+ * ✅ Environment Integration - Seamless integration with EnvironmentManager
+ * ✅ Type Safety - Full TypeScript support with compile-time validation
+ * ✅ Scenario Management - Load and manage test scenarios dynamically
+ * ✅ Mock Data Support - Generate mock data for testing and development
+ * ✅ Data Validation - Built-in validation for data integrity
+ * ✅ Caching - Efficient data caching for performance optimization
+ * 
+ * USAGE FOR TEST ENGINEERS:
+ * 
+ * 1. BASIC DATA LOADING:
+ * ```typescript
+ * const dataManager = DataManager.getInstance();
+ * const testData = dataManager.loadTestData();
+ * console.log(testData.homepage.url); // "https://frbsf.org"
+ * ```
+ * 
+ * 2. SCENARIO-BASED TESTING:
+ * ```typescript
+ * const { scenario, testData, config } = dataManager.getScenarioTestData('homepage', 'loadTest');
+ * // scenario contains resolved references from static data
+ * // testData contains all static configuration
+ * // config contains environment-specific settings
+ * ```
+ * 
+ * 3. SMART REFERENCE RESOLUTION:
+ * ```typescript
+ * // In test-scenarios.json:
+ * {
+ *   "assertions": {
+ *     "useStaticData": {
+ *       "titleContains": "homepage.title",
+ *       "maxLoadTime": "performance.maxLoadTime"
+ *     }
+ *   }
+ * }
+ * 
+ * // DataManager automatically resolves:
+ * // "homepage.title" → "Federal Reserve Bank of San Francisco"
+ * // "performance.maxLoadTime" → 5000
+ * ```
+ * 
+ * 4. ENVIRONMENT-SPECIFIC DATA:
+ * ```typescript
+ * const envData = dataManager.getEnvironmentTestData('staging');
+ * // Returns data with environment-specific overrides
+ * ```
+ * 
+ * REFERENCE SYSTEM EXPLAINED:
+ * The DataManager uses a dot notation reference system to eliminate duplication:
+ * - "homepage.title" → Resolves to testData.homepage.title
+ * - "performance.maxLoadTime" → Resolves to testData.performance.maxLoadTime
+ * - "contact.headquarters.phone" → Resolves to testData.contact.headquarters.phone
+ * 
+ * BENEFITS:
+ * 🎯 Single Source of Truth - Update data once, use everywhere
+ * 🔧 Easy Maintenance - No duplicate data to maintain
+ * 📈 Scalability - Easy to add new scenarios without data duplication
+ * 🛡️ Type Safety - Compile-time validation of data access
+ * 🚀 Performance - Efficient caching and lazy loading
+ * 
+ * ERROR HANDLING:
+ * - Comprehensive error messages for missing files or invalid data
+ * - Graceful fallbacks for missing references
+ * - Detailed logging for debugging data issues
  */
 
 import * as fs from 'fs';

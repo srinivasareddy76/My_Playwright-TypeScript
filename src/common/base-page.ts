@@ -4,9 +4,53 @@
 
 
 /**
- * Base Page Class
+ * 🏗️ BasePage - Foundation Class for All Page Objects
  * 
- * Common functionality shared across all page objects for all applications
+ * PURPOSE:
+ * This abstract base class provides common functionality that all page objects inherit.
+ * It implements the Page Object Model (POM) pattern, encapsulating common web interactions,
+ * navigation, verification, and utility methods that are used across all pages.
+ * 
+ * BENEFITS FOR TEST ENGINEERS:
+ * ✅ Consistent API across all page objects
+ * ✅ Built-in logging and error handling
+ * ✅ Reusable navigation and verification methods
+ * ✅ Performance monitoring capabilities
+ * ✅ Accessibility testing integration
+ * ✅ Standardized element interaction patterns
+ * 
+ * USAGE EXAMPLE:
+ * ```typescript
+ * export class LoginPage extends BasePage {
+ *   private selectors = {
+ *     usernameField: '[data-testid="username"]',
+ *     passwordField: '[data-testid="password"]',
+ *     loginButton: '[data-testid="login-btn"]'
+ *   };
+ * 
+ *   async login(username: string, password: string): Promise<void> {
+ *     await this.fillField(this.selectors.usernameField, username);
+ *     await this.fillField(this.selectors.passwordField, password);
+ *     await this.clickElement(this.selectors.loginButton);
+ *   }
+ * }
+ * ```
+ * 
+ * KEY METHODS AVAILABLE:
+ * - Navigation: navigateToUrl(), goBack(), refresh()
+ * - Element Interaction: clickElement(), fillField(), selectOption()
+ * - Verification: verifyElementVisible(), verifyText(), verifyUrl()
+ * - Performance: getPageLoadTime(), getPerformanceMetrics()
+ * - Accessibility: checkAccessibility(), verifyKeyboardNavigation()
+ * - Utilities: waitForElement(), scrollToElement(), takeScreenshot()
+ * 
+ * LOGGING:
+ * All actions are automatically logged with context for debugging and reporting.
+ * Logs include timestamps, action descriptions, and success/failure status.
+ * 
+ * ERROR HANDLING:
+ * Built-in error handling with descriptive messages and automatic screenshot
+ * capture on failures for easier debugging.
  */
 
 import { Page, expect, Locator } from '@playwright/test';

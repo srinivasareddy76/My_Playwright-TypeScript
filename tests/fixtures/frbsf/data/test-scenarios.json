@@ -19,9 +19,11 @@
         }
       ],
       "assertions": {
-        "titleContains": "Federal Reserve Bank of San Francisco",
-        "urlContains": "frbsf.org",
-        "maxLoadTime": 5000
+        "useStaticData": {
+          "titleContains": "homepage.title",
+          "urlContains": "homepage.url",
+          "maxLoadTime": "performance.maxLoadTime"
+        }
       }
     },
     "structureTest": {
@@ -41,19 +43,10 @@
         }
       ],
       "assertions": {
-        "requiredNavigationItems": [
-          "About",
-          "Research", 
-          "Banking",
-          "Community",
-          "News & Events"
-        ],
-        "requiredContentSections": [
-          "hero",
-          "news", 
-          "research",
-          "footer"
-        ],
+        "useStaticData": {
+          "requiredNavigationItems": "homepage.navigationItems",
+          "requiredContentSections": "homepage.contentSections"
+        },
         "minNavigationItems": 5
       }
     },
@@ -70,24 +63,22 @@
         }
       ],
       "assertions": {
-        "navigationItemsToTest": [
-          "About",
-          "Research",
-          "Banking"
-        ],
+        "useStaticData": {
+          "navigationItemsToTest": "homepage.navigationItems"
+        },
         "maxNavigationTime": 2500
       }
     },
     "searchTest": {
       "description": "Verify search functionality",
       "testData": {
-        "searchTerms": [
-          "monetary policy",
-          "economic research",
-          "banking supervision"
-        ],
+        "useStaticData": {
+          "searchTerms": "homepage.searchTerms"
+        },
         "expectedBehavior": {
-          "maxSearchTime": 3000,
+          "useStaticData": {
+            "maxSearchTime": "performance.maxSearchTime"
+          },
           "resultsPageIndicator": "search",
           "minResultsExpected": 1
         }
@@ -155,11 +146,9 @@
     "socialMediaTest": {
       "description": "Verify social media links",
       "testData": {
-        "expectedSocialLinks": [
-          "twitter",
-          "linkedin",
-          "youtube"
-        ],
+        "useStaticData": {
+          "expectedSocialLinks": "homepage.socialMediaLinks"
+        },
         "linkValidation": {
           "checkAccessibility": true,
           "verifyUrls": false
@@ -221,11 +210,8 @@
     "performanceTest": {
       "description": "Verify performance requirements",
       "testData": {
-        "performanceMetrics": {
-          "maxLoadTime": 5000,
-          "targetLoadTime": 3000,
-          "maxInteractionTime": 2000,
-          "acceptableLoadTime": 4000
+        "useStaticData": {
+          "performanceMetrics": "performance"
         },
         "metricsToCheck": [
           "domContentLoaded",
@@ -248,16 +234,8 @@
     "contactTest": {
       "description": "Verify contact information display",
       "testData": {
-        "expectedContactInfo": {
-          "headquarters": {
-            "address": "101 Market Street, San Francisco, CA 94105",
-            "phone": "(415) 974-2000"
-          },
-          "requiredBranches": [
-            "Los Angeles Branch",
-            "Portland Branch",
-            "Seattle Branch"
-          ]
+        "useStaticData": {
+          "expectedContactInfo": "contact"
         },
         "contactValidation": {
           "verifyAddressFormat": true,

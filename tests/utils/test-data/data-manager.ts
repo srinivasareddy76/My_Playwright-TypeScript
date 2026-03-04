@@ -350,11 +350,68 @@ export class DataManager {
     // Override base URL with environment-specific URL
     testData.homepage.url = config.baseUrl;
     
+    // Resolve static data references in scenario
+    const resolvedScenario = this.resolveStaticDataReferences(scenario, testData);
+    
     return {
-      scenario,
+      scenario: resolvedScenario,
       testData,
       config
     };
+  }
+
+  /**
+   * Resolve static data references in scenario data
+   */
+  private resolveStaticDataReferences(scenario: TestScenario, testData: TestData): TestScenario {
+    const resolvedScenario = JSON.parse(JSON.stringify(scenario)); // Deep clone
+
+    // Recursively resolve references
+    this.resolveReferences(resolvedScenario, testData);
+
+    return resolvedScenario;
+  }
+
+  /**
+   * Recursively resolve useStaticData references
+   */
+  private resolveReferences(obj: any, testData: TestData): void {
+    if (typeof obj !== 'object' || obj === null) {
+      return;
+    }
+
+    if (Array.isArray(obj)) {
+      obj.forEach(item => this.resolveReferences(item, testData));
+      return;
+    }
+
+    // Handle useStaticData object
+    if (obj.useStaticData && typeof obj.useStaticData === 'object') {
+      for (const [key, path] of Object.entries(obj.useStaticData)) {
+        if (typeof path === 'string') {
+          const resolvedValue = this.getNestedValue(testData, path);
+          if (resolvedValue !== undefined) {
+            obj[key] = resolvedValue;
+          }
+        }
+      }
+      // Remove the useStaticData object after resolving
+      delete obj.useStaticData;
+    }
+
+    // Recursively process nested objects
+    for (const value of Object.values(obj)) {
+      this.resolveReferences(value, testData);
+    }
+  }
+
+  /**
+   * Get nested value from object using dot notation path
+   */
+  private getNestedValue(obj: any, path: string): any {
+    return path.split('.').reduce((current, key) => {
+      return current && current[key] !== undefined ? current[key] : undefined;
+    }, obj);
   }
 
   /**

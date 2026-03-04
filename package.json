@@ -1,0 +1,45 @@
+{
+  "name": "my_playwright-typescript",
+  "version": "1.0.0",
+  "description": "Playwright TypeScript automation framework for FRBSF website testing",
+  "main": "index.js",
+  "scripts": {
+    "test": "playwright test",
+    "test:headed": "playwright test --headed",
+    "test:debug": "playwright test --debug",
+    "test:ui": "playwright test --ui",
+    "test:homepage": "playwright test tests/specs/homepage.spec.ts",
+    "test:responsive": "playwright test tests/specs/responsive.spec.ts",
+    "test:performance": "playwright test tests/specs/performance.spec.ts",
+    "test:accessibility": "playwright test tests/specs/accessibility.spec.ts",
+    "test:chromium": "playwright test --project=chromium",
+    "test:firefox": "playwright test --project=firefox",
+    "test:webkit": "playwright test --project=webkit",
+    "test:mobile": "playwright test --project='Mobile Chrome'",
+    "test:report": "playwright show-report",
+    "test:install": "playwright install",
+    "build": "tsc",
+    "clean": "rm -rf dist reports test-results",
+    "lint": "eslint src tests --ext .ts",
+    "format": "prettier --write src tests"
+  },
+  "keywords": [
+    "playwright",
+    "typescript",
+    "automation",
+    "testing",
+    "e2e",
+    "frbsf",
+    "web-testing"
+  ],
+  "author": "Test Automation Team",
+  "license": "MIT",
+  "devDependencies": {
+    "@playwright/test": "^1.58.2",
+    "@types/node": "^25.3.3",
+    "typescript": "^5.9.3"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

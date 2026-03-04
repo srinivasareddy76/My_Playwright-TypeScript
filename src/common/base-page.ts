@@ -237,7 +237,7 @@ export abstract class BasePage {
    */
   async getPerformanceMetrics(): Promise<any> {
     return await this.page.evaluate(() => {
-      const timing = performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming;
+      const timing = performance.getEntriesByType('navigation')[0] as any;
       return {
         loadTime: timing.loadEventEnd - timing.navigationStart,
         domContentLoaded: timing.domContentLoadedEventEnd - timing.navigationStart,

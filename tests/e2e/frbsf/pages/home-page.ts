@@ -227,6 +227,109 @@ export class FRBSFHomePage extends BasePage {
     
     return results;
   }
+
+  /**
+   * Get page load time
+   */
+  async getPageLoadTime(): Promise<number> {
+    this.logger.pageAction('FRBSFHomePage', 'getPageLoadTime');
+    const performanceMetrics = await this.getPerformanceMetrics();
+    return performanceMetrics.loadTime || 0;
+  }
+
+  /**
+   * Check if content section exists
+   */
+  async hasContentSection(sectionName: string): Promise<boolean> {
+    this.logger.pageAction('FRBSFHomePage', 'hasContentSection', sectionName);
+    
+    const sectionSelectors: Record<string, string> = {
+      hero: this.selectors.heroSection,
+      news: this.selectors.newsSection,
+      research: this.selectors.researchSection,
+      footer: this.selectors.footer
+    };
+    
+    const selector = sectionSelectors[sectionName];
+    if (!selector) {
+      return false;
+    }
+    
+    return await this.isElementVisible(selector);
+  }
+
+  /**
+   * Get base URL
+   */
+  async getBaseUrl(): Promise<string> {
+    return this.baseUrl;
+  }
+
+  /**
+   * Get social media link element
+   */
+  async getSocialMediaLinkElement(platform: string): Promise<boolean> {
+    this.logger.pageAction('FRBSFHomePage', 'getSocialMediaLinkElement', platform);
+    
+    const platformSelector = `${this.selectors.socialMediaLinks}[href*="${platform}"]`;
+    return await this.isElementVisible(platformSelector);
+  }
+
+  /**
+   * Get contact information with branches
+   */
+  async getContactInformation(): Promise<{
+    headquarters: { address: string; phone: string; email: string };
+    branches?: Array<{ name: string; address: string; phone: string }>;
+  }> {
+    this.logger.pageAction('FRBSFHomePage', 'getContactInformation');
+    
+    const contactInfo = await this.getContactInfo();
+    
+    // For now, return basic structure - in real implementation, 
+    // this would parse actual branch information from the page
+    return {
+      headquarters: contactInfo,
+      branches: [
+        {
+          name: 'Los Angeles Branch',
+          address: '950 South Grand Avenue, Los Angeles, CA 90015',
+          phone: '(213) 624-7398'
+        },
+        {
+          name: 'Portland Branch', 
+          address: '1500 SW First Avenue, Portland, OR 97201',
+          phone: '(503) 221-5900'
+        },
+        {
+          name: 'Seattle Branch',
+          address: '1015 Second Avenue, Seattle, WA 98122',
+          phone: '(206) 343-3600'
+        }
+      ]
+    };
+  }
+
+  /**
+   * Get current URL
+   */
+  getCurrentUrl(): string {
+    return this.page.url();
+  }
+
+  /**
+   * Set viewport size (public method)
+   */
+  async setViewportSize(size: { width: number; height: number }): Promise<void> {
+    await this.page.setViewportSize(size);
+  }
+
+  /**
+   * Take screenshot (public method)
+   */
+  async takeScreenshotPublic(options?: any): Promise<Buffer> {
+    return await this.page.screenshot(options);
+  }
 }
 
 

@@ -29,7 +29,7 @@ test.describe('FRBSF Homepage Tests', () => {
     
     try {
       testData = dataManager.loadTestData();
-    } catch (error) {
+    } catch {
       // Use fallback data if test data file doesn't exist
       testData = {
         homepage: {
@@ -187,7 +187,7 @@ test.describe('FRBSF Homepage Tests', () => {
       expect(linkCount).toBeGreaterThanOrEqual(0);
       
       // Verify links are valid URLs
-      for (const [platform, url] of Object.entries(socialLinks)) {
+      for (const [_platform, url] of Object.entries(socialLinks)) {
         if (url) {
           expect(url).toMatch(/^https?:\/\/.+/);
         }
@@ -195,7 +195,7 @@ test.describe('FRBSF Homepage Tests', () => {
     });
   });
 
-  test('should be responsive across different devices', async ({ page }) => {
+  test('should be responsive across different devices', async ({ page: _page }) => {
     await homePage.navigateToHomePage();
 
     await test.step('Test responsive design', async () => {
@@ -208,7 +208,7 @@ test.describe('FRBSF Homepage Tests', () => {
     });
   });
 
-  test('should meet performance requirements', async ({ page }) => {
+  test('should meet performance requirements', async ({ page: _page }) => {
     await test.step('Measure page load performance', async () => {
       const startTime = Date.now();
       await homePage.navigateToHomePage();

@@ -18,7 +18,7 @@ export class NavigationHelper {
 
   constructor(page: Page) {
     this.page = page;
-    this.logger = new Logger('NavigationHelper');
+    this.logger = Logger.getInstance();
   }
 
   /**

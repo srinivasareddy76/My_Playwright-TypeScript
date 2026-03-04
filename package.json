@@ -8,28 +8,16 @@
     "test:headed": "playwright test --headed",
     "test:debug": "playwright test --debug",
     "test:ui": "playwright test --ui",
-    
     "test:frbsf": "playwright test --project=frbsf-chromium",
     "test:frbsf:all": "playwright test --project=frbsf-*",
     "test:frbsf:mobile": "playwright test --project=frbsf-mobile-*",
     "test:frbsf:desktop": "playwright test --project=frbsf-chromium --project=frbsf-firefox --project=frbsf-webkit",
-    
-    "test:boa": "playwright test --project=boa-chromium",
-    "test:boa:all": "playwright test --project=boa-*",
-    "test:boa:mobile": "playwright test --project=boa-mobile-*",
-    
-    "test:chase": "playwright test --project=chase-chromium",
-    "test:chase:all": "playwright test --project=chase-*",
-    "test:chase:mobile": "playwright test --project=chase-mobile-*",
-    
-    "test:all-apps": "playwright test --project=frbsf-chromium --project=boa-chromium --project=chase-chromium",
+    "test:all": "playwright test --project=frbsf-chromium",
     "test:cross-browser": "playwright test --project=cross-browser-*",
-    
     "test:chromium": "playwright test --project=*-chromium",
     "test:firefox": "playwright test --project=*-firefox",
     "test:webkit": "playwright test --project=*-webkit",
     "test:mobile": "playwright test --project=*-mobile-*",
-    
     "test:report": "playwright show-report",
     "test:install": "playwright install",
     "build": "tsc",
@@ -49,8 +37,12 @@
   "author": "Test Automation Team",
   "license": "MIT",
   "devDependencies": {
+    "@eslint/js": "^9.39.3",
     "@playwright/test": "^1.58.2",
     "@types/node": "^25.3.3",
+    "@typescript-eslint/eslint-plugin": "^8.56.1",
+    "@typescript-eslint/parser": "^8.56.1",
+    "eslint": "^9.39.3",
     "typescript": "^5.9.3"
   },
   "engines": {

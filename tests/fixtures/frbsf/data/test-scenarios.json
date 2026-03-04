@@ -1,0 +1,285 @@
+
+{
+  "homepage": {
+    "loadTest": {
+      "description": "Verify homepage loads successfully",
+      "steps": [
+        {
+          "action": "navigate",
+          "target": "homepage",
+          "expected": "page loads within acceptable time"
+        },
+        {
+          "action": "verifyTitle",
+          "expected": "contains 'Federal Reserve Bank of San Francisco'"
+        },
+        {
+          "action": "verifyUrl",
+          "expected": "contains 'frbsf.org'"
+        }
+      ],
+      "assertions": {
+        "titleContains": "Federal Reserve Bank of San Francisco",
+        "urlContains": "frbsf.org",
+        "maxLoadTime": 5000
+      }
+    },
+    "structureTest": {
+      "description": "Verify proper page structure elements",
+      "steps": [
+        {
+          "action": "navigate",
+          "target": "homepage"
+        },
+        {
+          "action": "verifyNavigation",
+          "expected": "main navigation items are present"
+        },
+        {
+          "action": "verifyContentSections",
+          "expected": "all required content sections exist"
+        }
+      ],
+      "assertions": {
+        "requiredNavigationItems": [
+          "About",
+          "Research", 
+          "Banking",
+          "Community",
+          "News & Events"
+        ],
+        "requiredContentSections": [
+          "hero",
+          "news", 
+          "research",
+          "footer"
+        ],
+        "minNavigationItems": 5
+      }
+    },
+    "navigationTest": {
+      "description": "Verify navigation menu functionality",
+      "steps": [
+        {
+          "action": "navigate",
+          "target": "homepage"
+        },
+        {
+          "action": "clickNavigationItems",
+          "expected": "navigation works correctly"
+        }
+      ],
+      "assertions": {
+        "navigationItemsToTest": [
+          "About",
+          "Research",
+          "Banking"
+        ],
+        "maxNavigationTime": 2500
+      }
+    },
+    "searchTest": {
+      "description": "Verify search functionality",
+      "testData": {
+        "searchTerms": [
+          "monetary policy",
+          "economic research",
+          "banking supervision"
+        ],
+        "expectedBehavior": {
+          "maxSearchTime": 3000,
+          "resultsPageIndicator": "search",
+          "minResultsExpected": 1
+        }
+      },
+      "steps": [
+        {
+          "action": "navigate",
+          "target": "homepage"
+        },
+        {
+          "action": "performSearch",
+          "input": "searchTerms[0]",
+          "expected": "search results page loads"
+        },
+        {
+          "action": "verifySearchResults",
+          "expected": "results are displayed"
+        }
+      ]
+    },
+    "newsTest": {
+      "description": "Verify latest news display",
+      "testData": {
+        "expectedNewsCount": 3,
+        "requiredFields": ["title", "date"],
+        "maxNewsItems": 10
+      },
+      "steps": [
+        {
+          "action": "navigate",
+          "target": "homepage"
+        },
+        {
+          "action": "getNewsItems",
+          "expected": "news items are displayed"
+        },
+        {
+          "action": "verifyNewsStructure",
+          "expected": "news items have required fields"
+        }
+      ]
+    },
+    "researchTest": {
+      "description": "Verify research publications display",
+      "testData": {
+        "expectedResearchCount": 3,
+        "requiredFields": ["title", "author"],
+        "maxResearchItems": 8
+      },
+      "steps": [
+        {
+          "action": "navigate",
+          "target": "homepage"
+        },
+        {
+          "action": "getResearchItems",
+          "expected": "research items are displayed"
+        },
+        {
+          "action": "verifyResearchStructure",
+          "expected": "research items have required fields"
+        }
+      ]
+    },
+    "socialMediaTest": {
+      "description": "Verify social media links",
+      "testData": {
+        "expectedSocialLinks": [
+          "twitter",
+          "linkedin",
+          "youtube"
+        ],
+        "linkValidation": {
+          "checkAccessibility": true,
+          "verifyUrls": false
+        }
+      },
+      "steps": [
+        {
+          "action": "navigate",
+          "target": "homepage"
+        },
+        {
+          "action": "getSocialMediaLinks",
+          "expected": "social media links are present"
+        },
+        {
+          "action": "verifySocialLinks",
+          "expected": "links are accessible"
+        }
+      ]
+    },
+    "responsiveTest": {
+      "description": "Verify responsive design across devices",
+      "testData": {
+        "deviceBreakpoints": [
+          {
+            "name": "mobile",
+            "width": 375,
+            "height": 667
+          },
+          {
+            "name": "tablet", 
+            "width": 768,
+            "height": 1024
+          },
+          {
+            "name": "desktop",
+            "width": 1920,
+            "height": 1080
+          }
+        ],
+        "requiredElementsOnAllDevices": [
+          "logo",
+          "mainNavigation",
+          "footer"
+        ]
+      },
+      "steps": [
+        {
+          "action": "setViewport",
+          "input": "deviceBreakpoints",
+          "expected": "page adapts to different screen sizes"
+        },
+        {
+          "action": "verifyResponsiveElements",
+          "expected": "required elements visible on all devices"
+        }
+      ]
+    },
+    "performanceTest": {
+      "description": "Verify performance requirements",
+      "testData": {
+        "performanceMetrics": {
+          "maxLoadTime": 5000,
+          "targetLoadTime": 3000,
+          "maxInteractionTime": 2000,
+          "acceptableLoadTime": 4000
+        },
+        "metricsToCheck": [
+          "domContentLoaded",
+          "firstContentfulPaint",
+          "largestContentfulPaint"
+        ]
+      },
+      "steps": [
+        {
+          "action": "measureLoadTime",
+          "target": "homepage",
+          "expected": "page loads within performance thresholds"
+        },
+        {
+          "action": "verifyPerformanceMetrics",
+          "expected": "all metrics meet requirements"
+        }
+      ]
+    },
+    "contactTest": {
+      "description": "Verify contact information display",
+      "testData": {
+        "expectedContactInfo": {
+          "headquarters": {
+            "address": "101 Market Street, San Francisco, CA 94105",
+            "phone": "(415) 974-2000"
+          },
+          "requiredBranches": [
+            "Los Angeles Branch",
+            "Portland Branch",
+            "Seattle Branch"
+          ]
+        },
+        "contactValidation": {
+          "verifyAddressFormat": true,
+          "verifyPhoneFormat": true,
+          "checkEmailLinks": false
+        }
+      },
+      "steps": [
+        {
+          "action": "navigate",
+          "target": "homepage"
+        },
+        {
+          "action": "getContactInformation",
+          "expected": "contact information is displayed"
+        },
+        {
+          "action": "verifyContactDetails",
+          "expected": "contact details are properly formatted"
+        }
+      ]
+    }
+  }
+}
+

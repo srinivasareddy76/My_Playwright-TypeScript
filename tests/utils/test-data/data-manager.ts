@@ -16,6 +16,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import { Logger } from '../../../src/utils/logger';
+import { EnvironmentManager, EnvironmentConfig } from '../../../src/config/environment';
 
 export interface TestData {
   homepage: {
@@ -36,6 +37,34 @@ export interface TestData {
     colorContrastRatio: number;
     keyboardNavigationRequired: boolean;
   };
+  contact: {
+    headquarters: {
+      address: string;
+      phone: string;
+      email: string;
+    };
+    branches: Array<{
+      name: string;
+      address: string;
+      phone: string;
+    }>;
+  };
+}
+
+export interface TestScenario {
+  description: string;
+  steps: Array<{
+    action: string;
+    target?: string;
+    input?: string;
+    expected: string;
+  }>;
+  assertions?: Record<string, any>;
+  testData?: Record<string, any>;
+}
+
+export interface TestScenarios {
+  homepage: Record<string, TestScenario>;
 }
 
 export interface UserPersona {
@@ -45,12 +74,7 @@ export interface UserPersona {
   searchTerms: string[];
 }
 
-export interface Environment {
-  baseUrl: string;
-  timeout: number;
-  retries: number;
-  headless: boolean;
-}
+// Using EnvironmentConfig from src/config/environment.ts instead of local interface
 
 export class DataManager {
   private logger: Logger;
@@ -98,18 +122,17 @@ export class DataManager {
   /**
    * Load environment configuration
    */
-  loadEnvironmentConfig(environment: string): Environment {
+  loadEnvironmentConfig(environment?: string): EnvironmentConfig {
     try {
-      const filePath = path.join(this.dataPath, 'environments.json');
-      const rawData = fs.readFileSync(filePath, 'utf8');
-      const data = JSON.parse(rawData);
+      const environmentManager = EnvironmentManager.getInstance();
       
-      if (!data[environment]) {
-        throw new Error(`Environment '${environment}' not found`);
+      if (environment && environment !== environmentManager.getEnvironmentName()) {
+        environmentManager.setEnvironment(environment);
       }
       
-      this.logger.info(`Environment config loaded for: ${environment}`);
-      return data[environment];
+      const config = environmentManager.getConfig();
+      this.logger.info(`Environment config loaded for: ${environmentManager.getEnvironmentName()}`);
+      return config;
     } catch (error) {
       this.logger.error(`Failed to load environment config for: ${environment}`, error);
       throw new Error(`Could not load environment config for: ${environment}`);
@@ -253,10 +276,92 @@ export class DataManager {
   }
 
   /**
+   * Load test scenarios from JSON file
+   */
+  loadTestScenarios(): TestScenarios {
+    try {
+      const filePath = path.join(this.dataPath, 'test-scenarios.json');
+      const rawData = fs.readFileSync(filePath, 'utf8');
+      const scenarios = JSON.parse(rawData);
+      
+      this.logger.info('Test scenarios loaded successfully');
+      return scenarios;
+    } catch (error) {
+      this.logger.error('Failed to load test scenarios', error);
+      throw new Error('Could not load test scenarios');
+    }
+  }
+
+  /**
+   * Get specific test scenario
+   */
+  getTestScenario(page: string, scenarioName: string): TestScenario {
+    try {
+      const scenarios = this.loadTestScenarios();
+      
+      if (!scenarios[page as keyof TestScenarios]) {
+        throw new Error(`Page '${page}' not found in test scenarios`);
+      }
+      
+      const pageScenarios = scenarios[page as keyof TestScenarios];
+      if (!pageScenarios[scenarioName]) {
+        throw new Error(`Scenario '${scenarioName}' not found for page '${page}'`);
+      }
+      
+      this.logger.info(`Test scenario loaded: ${page}.${scenarioName}`);
+      return pageScenarios[scenarioName];
+    } catch (error) {
+      this.logger.error(`Failed to get test scenario: ${page}.${scenarioName}`, error);
+      throw error;
+    }
+  }
+
+  /**
+   * Get all scenarios for a specific page
+   */
+  getPageScenarios(page: string): Record<string, TestScenario> {
+    try {
+      const scenarios = this.loadTestScenarios();
+      
+      if (!scenarios[page as keyof TestScenarios]) {
+        throw new Error(`Page '${page}' not found in test scenarios`);
+      }
+      
+      this.logger.info(`Page scenarios loaded for: ${page}`);
+      return scenarios[page as keyof TestScenarios];
+    } catch (error) {
+      this.logger.error(`Failed to get page scenarios for: ${page}`, error);
+      throw error;
+    }
+  }
+
+  /**
+   * Get test data for a specific scenario
+   */
+  getScenarioTestData(page: string, scenarioName: string): {
+    scenario: TestScenario;
+    testData: TestData;
+    config: EnvironmentConfig;
+  } {
+    const scenario = this.getTestScenario(page, scenarioName);
+    const testData = this.loadTestData();
+    const config = this.loadEnvironmentConfig();
+    
+    // Override base URL with environment-specific URL
+    testData.homepage.url = config.baseUrl;
+    
+    return {
+      scenario,
+      testData,
+      config
+    };
+  }
+
+  /**
    * Get environment-specific test data
    */
-  getEnvironmentTestData(environment: string): {
-    config: Environment;
+  getEnvironmentTestData(environment?: string): {
+    config: EnvironmentConfig;
     testData: TestData;
   } {
     const config = this.loadEnvironmentConfig(environment);

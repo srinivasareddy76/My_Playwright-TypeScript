@@ -16,7 +16,7 @@ export class AuthHelper {
 
   constructor(page: Page) {
     this.page = page;
-    this.logger = new Logger('AuthHelper');
+    this.logger = Logger.getInstance();
   }
 
   /**

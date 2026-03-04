@@ -5,7 +5,7 @@ import { FullConfig } from '@playwright/test';
 import * as fs from 'fs';
 import * as path from 'path';
 
-async function globalTeardown(config: FullConfig) {
+async function globalTeardown(_config: FullConfig) {
   console.log('🧹 Starting global teardown...');
   
   // Generate test summary

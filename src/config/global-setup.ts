@@ -5,7 +5,7 @@ import { EnvironmentManager } from './environment';
 import * as fs from 'fs';
 import * as path from 'path';
 
-async function globalSetup(config: FullConfig) {
+async function globalSetup(_config: FullConfig) {
   console.log('🚀 Starting global setup...');
   
   // Initialize environment manager

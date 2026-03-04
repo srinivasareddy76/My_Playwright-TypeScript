@@ -84,58 +84,6 @@ export default defineConfig({
       },
     },
 
-    // Bank of America Application Tests
-    {
-      name: 'boa-chromium',
-      testDir: './tests/e2e/bankofamerica',
-      use: { 
-        ...devices['Desktop Chrome'],
-        baseURL: 'https://bankofamerica.com',
-      },
-    },
-    {
-      name: 'boa-firefox',
-      testDir: './tests/e2e/bankofamerica',
-      use: { 
-        ...devices['Desktop Firefox'],
-        baseURL: 'https://bankofamerica.com',
-      },
-    },
-    {
-      name: 'boa-mobile-chrome',
-      testDir: './tests/e2e/bankofamerica',
-      use: { 
-        ...devices['Pixel 5'],
-        baseURL: 'https://bankofamerica.com',
-      },
-    },
-
-    // Chase Bank Application Tests
-    {
-      name: 'chase-chromium',
-      testDir: './tests/e2e/chase',
-      use: { 
-        ...devices['Desktop Chrome'],
-        baseURL: 'https://chase.com',
-      },
-    },
-    {
-      name: 'chase-firefox',
-      testDir: './tests/e2e/chase',
-      use: { 
-        ...devices['Desktop Firefox'],
-        baseURL: 'https://chase.com',
-      },
-    },
-    {
-      name: 'chase-mobile-chrome',
-      testDir: './tests/e2e/chase',
-      use: { 
-        ...devices['Pixel 5'],
-        baseURL: 'https://chase.com',
-      },
-    },
-
     // Cross-application compatibility tests
     {
       name: 'cross-browser-edge',

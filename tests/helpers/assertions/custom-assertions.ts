@@ -11,7 +11,7 @@
  * Provides custom assertion methods for common test scenarios
  */
 
-import { Page, expect, Locator } from '@playwright/test';
+import { Page, expect } from '@playwright/test';
 import { Logger } from '../../../src/utils/logger';
 
 export class CustomAssertions {
@@ -20,7 +20,7 @@ export class CustomAssertions {
 
   constructor(page: Page) {
     this.page = page;
-    this.logger = new Logger('CustomAssertions');
+    this.logger = Logger.getInstance();
   }
 
   /**
@@ -204,7 +204,7 @@ export class CustomAssertions {
     this.logger.info(`Asserting page load time is under ${maxLoadTime}ms`);
     
     const navigationTiming = await this.page.evaluate(() => {
-      const timing = performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming;
+      const timing = performance.getEntriesByType('navigation')[0] as any;
       return timing.loadEventEnd - timing.navigationStart;
     });
     

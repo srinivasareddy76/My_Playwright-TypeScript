@@ -40,41 +40,118 @@ export default defineConfig({
     navigationTimeout: 30000,
   },
 
-  /* Configure projects for major browsers */
+  /* Configure projects for major browsers and applications */
   projects: [
+    // FRBSF Application Tests
     {
-      name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
+      name: 'frbsf-chromium',
+      testDir: './tests/e2e/frbsf',
+      use: { 
+        ...devices['Desktop Chrome'],
+        baseURL: 'https://frbsf.org',
+      },
+    },
+    {
+      name: 'frbsf-firefox',
+      testDir: './tests/e2e/frbsf',
+      use: { 
+        ...devices['Desktop Firefox'],
+        baseURL: 'https://frbsf.org',
+      },
+    },
+    {
+      name: 'frbsf-webkit',
+      testDir: './tests/e2e/frbsf',
+      use: { 
+        ...devices['Desktop Safari'],
+        baseURL: 'https://frbsf.org',
+      },
+    },
+    {
+      name: 'frbsf-mobile-chrome',
+      testDir: './tests/e2e/frbsf',
+      use: { 
+        ...devices['Pixel 5'],
+        baseURL: 'https://frbsf.org',
+      },
+    },
+    {
+      name: 'frbsf-mobile-safari',
+      testDir: './tests/e2e/frbsf',
+      use: { 
+        ...devices['iPhone 12'],
+        baseURL: 'https://frbsf.org',
+      },
     },
 
+    // Bank of America Application Tests
     {
-      name: 'firefox',
-      use: { ...devices['Desktop Firefox'] },
+      name: 'boa-chromium',
+      testDir: './tests/e2e/bankofamerica',
+      use: { 
+        ...devices['Desktop Chrome'],
+        baseURL: 'https://bankofamerica.com',
+      },
+    },
+    {
+      name: 'boa-firefox',
+      testDir: './tests/e2e/bankofamerica',
+      use: { 
+        ...devices['Desktop Firefox'],
+        baseURL: 'https://bankofamerica.com',
+      },
+    },
+    {
+      name: 'boa-mobile-chrome',
+      testDir: './tests/e2e/bankofamerica',
+      use: { 
+        ...devices['Pixel 5'],
+        baseURL: 'https://bankofamerica.com',
+      },
     },
 
+    // Chase Bank Application Tests
     {
-      name: 'webkit',
-      use: { ...devices['Desktop Safari'] },
+      name: 'chase-chromium',
+      testDir: './tests/e2e/chase',
+      use: { 
+        ...devices['Desktop Chrome'],
+        baseURL: 'https://chase.com',
+      },
+    },
+    {
+      name: 'chase-firefox',
+      testDir: './tests/e2e/chase',
+      use: { 
+        ...devices['Desktop Firefox'],
+        baseURL: 'https://chase.com',
+      },
+    },
+    {
+      name: 'chase-mobile-chrome',
+      testDir: './tests/e2e/chase',
+      use: { 
+        ...devices['Pixel 5'],
+        baseURL: 'https://chase.com',
+      },
     },
 
-    /* Test against mobile viewports. */
+    // Cross-application compatibility tests
     {
-      name: 'Mobile Chrome',
-      use: { ...devices['Pixel 5'] },
+      name: 'cross-browser-edge',
+      testDir: './tests/e2e',
+      use: { 
+        ...devices['Desktop Edge'], 
+        channel: 'msedge',
+      },
     },
     {
-      name: 'Mobile Safari',
-      use: { ...devices['iPhone 12'] },
-    },
-
-    /* Test against branded browsers. */
-    {
-      name: 'Microsoft Edge',
-      use: { ...devices['Desktop Edge'], channel: 'msedge' },
-    },
-    {
-      name: 'Google Chrome',
-      use: { ...devices['Desktop Chrome'], channel: 'chrome' },
+      name: 'cross-browser-chrome',
+      testDir: './tests/e2e',
+      use: { 
+        ...devices['Desktop Chrome'], 
+        channel: 'chrome',
+      },
     },
   ],
 

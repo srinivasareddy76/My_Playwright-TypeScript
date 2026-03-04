@@ -1,0 +1,216 @@
+
+
+
+{
+  "homepage": {
+    "url": "https://bankofamerica.com",
+    "title": "Bank of America",
+    "searchTerms": [
+      "checking account",
+      "savings account",
+      "credit cards",
+      "mortgages",
+      "auto loans",
+      "investment services",
+      "business banking"
+    ],
+    "navigationItems": [
+      "Deposits",
+      "Credit Cards",
+      "Home Loans",
+      "Auto Loans",
+      "Investing",
+      "Business",
+      "Security"
+    ],
+    "contentSections": [
+      "hero",
+      "products",
+      "services",
+      "offers",
+      "security",
+      "footer"
+    ],
+    "expectedElements": {
+      "logo": true,
+      "mainNavigation": true,
+      "signInButton": true,
+      "locatorButton": true,
+      "heroSection": true,
+      "productsSection": true,
+      "servicesSection": true,
+      "footer": true
+    }
+  },
+  "products": {
+    "checking": [
+      {
+        "name": "Advantage Plus Banking",
+        "monthlyFee": 12,
+        "minimumBalance": 1500,
+        "features": ["Online Banking", "Mobile App", "ATM Access"]
+      },
+      {
+        "name": "Advantage SafeBalance Banking",
+        "monthlyFee": 4.95,
+        "minimumBalance": 0,
+        "features": ["No Overdraft Fees", "Online Banking", "Mobile App"]
+      }
+    ],
+    "savings": [
+      {
+        "name": "Advantage Savings",
+        "monthlyFee": 8,
+        "minimumBalance": 500,
+        "apy": 0.01
+      },
+      {
+        "name": "Keep the Change",
+        "monthlyFee": 0,
+        "minimumBalance": 0,
+        "apy": 0.01
+      }
+    ],
+    "creditCards": [
+      {
+        "name": "Cash Rewards Credit Card",
+        "annualFee": 0,
+        "cashBackRate": "1-3%",
+        "introAPR": "0% for 15 months"
+      },
+      {
+        "name": "Travel Rewards Credit Card",
+        "annualFee": 0,
+        "rewardsRate": "1.5x points",
+        "introAPR": "0% for 15 months"
+      }
+    ]
+  },
+  "services": {
+    "digitalBanking": [
+      "Online Banking",
+      "Mobile Banking App",
+      "Zelle",
+      "Mobile Check Deposit",
+      "Account Alerts"
+    ],
+    "customerSupport": [
+      "24/7 Phone Support",
+      "Live Chat",
+      "Branch Locations",
+      "ATM Network",
+      "Financial Advisors"
+    ],
+    "security": [
+      "Two-Factor Authentication",
+      "Fraud Monitoring",
+      "Identity Theft Protection",
+      "Secure Messaging",
+      "Account Lockdown"
+    ]
+  },
+  "performance": {
+    "maxLoadTime": 4000,
+    "maxInteractionTime": 1500,
+    "maxSearchTime": 2500,
+    "maxNavigationTime": 2000,
+    "acceptableLoadTime": 2500,
+    "targetLoadTime": 1500
+  },
+  "accessibility": {
+    "wcagLevel": "AA",
+    "colorContrastRatio": 4.5,
+    "keyboardNavigationRequired": true,
+    "screenReaderSupport": true,
+    "altTextRequired": true,
+    "focusIndicators": true,
+    "skipLinks": true
+  },
+  "responsive": {
+    "breakpoints": {
+      "mobile": {
+        "width": 375,
+        "height": 667,
+        "name": "iPhone SE"
+      },
+      "tablet": {
+        "width": 768,
+        "height": 1024,
+        "name": "iPad"
+      },
+      "desktop": {
+        "width": 1920,
+        "height": 1080,
+        "name": "Desktop HD"
+      }
+    },
+    "requiredElements": [
+      "logo",
+      "mainNavigation",
+      "signInButton",
+      "mobileMenu",
+      "footer"
+    ]
+  },
+  "userAccounts": {
+    "testUser1": {
+      "username": "testuser1@example.com",
+      "password": "TestPass123!",
+      "accountType": "checking",
+      "balance": 2500.00
+    },
+    "testUser2": {
+      "username": "testuser2@example.com",
+      "password": "TestPass456!",
+      "accountType": "savings",
+      "balance": 10000.00
+    }
+  },
+  "locations": {
+    "branches": [
+      {
+        "name": "Downtown Branch",
+        "address": "123 Main Street, San Francisco, CA 94105",
+        "phone": "(415) 555-0123",
+        "hours": "Mon-Fri: 9AM-5PM, Sat: 9AM-2PM"
+      },
+      {
+        "name": "Union Square Branch",
+        "address": "456 Powell Street, San Francisco, CA 94108",
+        "phone": "(415) 555-0456",
+        "hours": "Mon-Fri: 9AM-6PM, Sat: 9AM-3PM"
+      }
+    ],
+    "atms": [
+      {
+        "location": "Financial District ATM",
+        "address": "789 Montgomery Street, San Francisco, CA 94111",
+        "features": ["Cash Withdrawal", "Deposits", "Balance Inquiry"]
+      }
+    ]
+  },
+  "contact": {
+    "customerService": {
+      "phone": "1-800-432-1000",
+      "hours": "24/7",
+      "languages": ["English", "Spanish"]
+    },
+    "technicalSupport": {
+      "phone": "1-800-933-6262",
+      "hours": "24/7",
+      "email": "techsupport@bankofamerica.com"
+    }
+  },
+  "api": {
+    "endpoints": {
+      "login": "/api/auth/login",
+      "accounts": "/api/accounts",
+      "transactions": "/api/transactions",
+      "locations": "/api/locations"
+    },
+    "timeout": 15000,
+    "retries": 2
+  }
+}
+
+

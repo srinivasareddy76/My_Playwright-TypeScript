@@ -8,18 +8,32 @@
     "test:headed": "playwright test --headed",
     "test:debug": "playwright test --debug",
     "test:ui": "playwright test --ui",
-    "test:homepage": "playwright test tests/specs/homepage.spec.ts",
-    "test:responsive": "playwright test tests/specs/responsive.spec.ts",
-    "test:performance": "playwright test tests/specs/performance.spec.ts",
-    "test:accessibility": "playwright test tests/specs/accessibility.spec.ts",
-    "test:chromium": "playwright test --project=chromium",
-    "test:firefox": "playwright test --project=firefox",
-    "test:webkit": "playwright test --project=webkit",
-    "test:mobile": "playwright test --project='Mobile Chrome'",
+    
+    "test:frbsf": "playwright test --project=frbsf-chromium",
+    "test:frbsf:all": "playwright test --project=frbsf-*",
+    "test:frbsf:mobile": "playwright test --project=frbsf-mobile-*",
+    "test:frbsf:desktop": "playwright test --project=frbsf-chromium --project=frbsf-firefox --project=frbsf-webkit",
+    
+    "test:boa": "playwright test --project=boa-chromium",
+    "test:boa:all": "playwright test --project=boa-*",
+    "test:boa:mobile": "playwright test --project=boa-mobile-*",
+    
+    "test:chase": "playwright test --project=chase-chromium",
+    "test:chase:all": "playwright test --project=chase-*",
+    "test:chase:mobile": "playwright test --project=chase-mobile-*",
+    
+    "test:all-apps": "playwright test --project=frbsf-chromium --project=boa-chromium --project=chase-chromium",
+    "test:cross-browser": "playwright test --project=cross-browser-*",
+    
+    "test:chromium": "playwright test --project=*-chromium",
+    "test:firefox": "playwright test --project=*-firefox",
+    "test:webkit": "playwright test --project=*-webkit",
+    "test:mobile": "playwright test --project=*-mobile-*",
+    
     "test:report": "playwright show-report",
     "test:install": "playwright install",
     "build": "tsc",
-    "clean": "rm -rf dist reports test-results",
+    "clean": "rm -rf dist reports test-results screenshots videos",
     "lint": "eslint src tests --ext .ts",
     "format": "prettier --write src tests"
   },

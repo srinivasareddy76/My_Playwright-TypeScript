@@ -1,0 +1,182 @@
+
+
+{
+  "homepage": {
+    "url": "https://frbsf.org",
+    "title": "Federal Reserve Bank of San Francisco",
+    "searchTerms": [
+      "monetary policy",
+      "economic research",
+      "banking supervision",
+      "financial stability",
+      "inflation data",
+      "employment statistics",
+      "interest rates"
+    ],
+    "navigationItems": [
+      "About",
+      "Research",
+      "Banking",
+      "Community",
+      "News & Events",
+      "Publications",
+      "Economic Data"
+    ],
+    "socialMediaLinks": {
+      "twitter": "https://twitter.com/sffed",
+      "linkedin": "https://linkedin.com/company/federal-reserve-bank-of-san-francisco",
+      "youtube": "https://youtube.com/user/frbsf",
+      "facebook": "https://facebook.com/federalreservesf"
+    },
+    "contentSections": [
+      "hero",
+      "news",
+      "research",
+      "economic-data",
+      "community",
+      "footer"
+    ],
+    "expectedElements": {
+      "logo": true,
+      "mainNavigation": true,
+      "searchButton": true,
+      "heroSection": true,
+      "newsSection": true,
+      "researchSection": true,
+      "footer": true
+    }
+  },
+  "performance": {
+    "maxLoadTime": 5000,
+    "maxInteractionTime": 2000,
+    "maxSearchTime": 3000,
+    "maxNavigationTime": 2500,
+    "acceptableLoadTime": 3000,
+    "targetLoadTime": 2000
+  },
+  "accessibility": {
+    "wcagLevel": "AA",
+    "colorContrastRatio": 4.5,
+    "keyboardNavigationRequired": true,
+    "screenReaderSupport": true,
+    "altTextRequired": true,
+    "focusIndicators": true
+  },
+  "responsive": {
+    "breakpoints": {
+      "mobile": {
+        "width": 375,
+        "height": 667,
+        "name": "iPhone SE"
+      },
+      "tablet": {
+        "width": 768,
+        "height": 1024,
+        "name": "iPad"
+      },
+      "desktop": {
+        "width": 1920,
+        "height": 1080,
+        "name": "Desktop HD"
+      },
+      "largeDesktop": {
+        "width": 2560,
+        "height": 1440,
+        "name": "Desktop 2K"
+      }
+    },
+    "requiredElements": [
+      "logo",
+      "mainNavigation",
+      "searchButton",
+      "footer"
+    ]
+  },
+  "search": {
+    "testQueries": [
+      {
+        "term": "monetary policy",
+        "expectedResults": 10,
+        "category": "policy"
+      },
+      {
+        "term": "economic research",
+        "expectedResults": 15,
+        "category": "research"
+      },
+      {
+        "term": "banking supervision",
+        "expectedResults": 8,
+        "category": "banking"
+      },
+      {
+        "term": "inflation",
+        "expectedResults": 12,
+        "category": "economics"
+      }
+    ],
+    "filters": [
+      "date",
+      "category",
+      "author",
+      "publication-type"
+    ]
+  },
+  "content": {
+    "news": {
+      "expectedCount": 5,
+      "requiredFields": ["title", "date", "summary"],
+      "categories": ["press-releases", "speeches", "research", "community"]
+    },
+    "research": {
+      "expectedCount": 8,
+      "requiredFields": ["title", "author", "date", "abstract"],
+      "types": ["working-papers", "economic-letters", "policy-briefs"]
+    },
+    "economicData": {
+      "expectedCount": 6,
+      "requiredFields": ["title", "lastUpdated", "frequency"],
+      "categories": ["employment", "inflation", "gdp", "housing"]
+    }
+  },
+  "contact": {
+    "headquarters": {
+      "address": "101 Market Street, San Francisco, CA 94105",
+      "phone": "(415) 974-2000",
+      "email": "info@sf.frb.org"
+    },
+    "branches": [
+      {
+        "name": "Los Angeles Branch",
+        "address": "950 South Grand Avenue, Los Angeles, CA 90015",
+        "phone": "(213) 624-7398"
+      },
+      {
+        "name": "Portland Branch",
+        "address": "1500 SW First Avenue, Portland, OR 97201",
+        "phone": "(503) 221-5900"
+      },
+      {
+        "name": "Salt Lake City Branch",
+        "address": "120 South State Street, Salt Lake City, UT 84111",
+        "phone": "(801) 322-7900"
+      },
+      {
+        "name": "Seattle Branch",
+        "address": "1015 Second Avenue, Seattle, WA 98122",
+        "phone": "(206) 343-3600"
+      }
+    ]
+  },
+  "api": {
+    "endpoints": {
+      "search": "/api/search",
+      "news": "/api/news",
+      "research": "/api/research",
+      "economicData": "/api/economic-data"
+    },
+    "timeout": 10000,
+    "retries": 3
+  }
+}
+
